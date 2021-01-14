@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* create style structures */
+@layer components {
+  .container {
+    @apply mx-auto px-3;
+  }
+
+  .router-link-active.router-link-exact-active {
+    @apply text-primary;
+  }
+  .title {
+    @apply text-xl font-bold;
+  }
+
+  .btn {
+    @apply px-3 py-2 rounded-md text-white inline-block;
+  }
+}
