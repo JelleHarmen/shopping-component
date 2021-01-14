@@ -4,11 +4,11 @@ export const cartItems = {
       // create variable for better overview
       const items = this.$store.state.cart.length;
       // if items more than zero return true value of items in cart
-      if (items > 0) {
-        return items;
-        // if items in cart are more than 99 return 99+
-      } else if (items > 99) {
+      if (items > 99) {
         return "99+";
+        // if items in cart are more than 99 return 99+
+      } else if (items > 0) {
+        return items;
       }
       // return false by default
       // no need to show a badge containing zero
