@@ -3,18 +3,15 @@
     <div class="container py-5">
       <div class="mb-5">
         <h1 class="title">
-          winkelwagen <span v-if="cartItems">({{ cartItems }})</span>
+          winkelwagen <span v-if="cart_amount">({{ cart_amount }})</span>
         </h1>
       </div>
 
-      <div
-        class="grid md:grid-cols-1 gap-4 lg:gap-6"
-        v-if="$store.state.cart != ''"
-      >
+      <div class="grid md:grid-cols-1 gap-4 lg:gap-6" v-if="cart_items != ''">
         <div
           class="shop--item bg-gray-100 rounded-lg p-3"
           :key="item.id"
-          v-for="(item, index) in $store.state.cart"
+          v-for="(item, index) in cart_items"
         >
           <div class="grid grid-cols-3">
             <div class="flex">
@@ -28,12 +25,7 @@
             <div class="flex justify-center">
               <div class="self-center">
                 <p>
-                  {{
-                    item.price.toLocaleString(
-                      $store.state.locale,
-                      $store.state.currency
-                    )
-                  }}
+                  {{ item.price.toLocaleString(locale, currency) }}
                 </p>
               </div>
             </div>
@@ -60,11 +52,28 @@
 </template>
 
 <script>
-// import from cartMixin
-import { cartItems, cartPriceTotal, removeFromCart } from "../mixins/cartMixin";
+// import cart functions
+import useCart from "@/use/useCart";
+
+// import state
+import state from "@/use/state";
 
 export default {
   name: "ShoppingCart",
-  mixins: [cartItems, cartPriceTotal, removeFromCart],
+  setup() {
+    // get the functions needed
+    const { cart_items, cart_amount, removeFromCart } = useCart();
+
+    // get the functions needed
+    const { locale, currency } = state();
+
+    return {
+      cart_items,
+      cart_amount,
+      removeFromCart,
+      locale,
+      currency,
+    };
+  },
 };
 </script>

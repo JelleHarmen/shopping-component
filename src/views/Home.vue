@@ -15,12 +15,7 @@
             {{ item.name }}
           </h5>
           <p class="mb-4">
-            {{
-              item.price.toLocaleString(
-                $store.state.locale,
-                $store.state.currency
-              )
-            }}
+            {{ item.price.toLocaleString(locale, currency) }}
           </p>
 
           <button @click="addToCart(item)" class="btn bg-primary">
@@ -36,15 +31,31 @@
 // import shop_items
 import shop_items from "@/config/shop_items";
 
-// import addToCart function from the cartMixins
-import { addToCart } from "@/mixins/cartMixin";
+// import cart functions
+import useCart from "@/use/useCart";
+
+// import state
+import state from "@/use/state";
 
 export default {
   name: "Home",
-  mixins: [addToCart],
   data() {
     return {
       shop_items,
+    };
+  },
+  setup() {
+    // get the functions needed for this page
+    const { cart_items, addToCart } = useCart();
+
+    // get the functions needed
+    const { locale, currency } = state();
+
+    return {
+      cart_items,
+      addToCart,
+      locale,
+      currency,
     };
   },
 };

@@ -23,22 +23,17 @@
               />
 
               <div
-                v-if="cartItems"
+                v-if="cart_amount"
                 class="absolute -top-5 lg:-top-4 -right-2 lg:-right-4 badge bg-red-500  text-white px-2 py-1 rounded-full text-xs inline"
               >
-                {{ cartItems }}
+                {{ cart_amount }}
               </div>
 
               <div
-                v-if="cartPriceTotal"
+                v-if="cart_value"
                 class="absolute -bottom-7 -right-2 lg:-right-4 badge bg-green-500  text-white px-2 py-1 rounded-full text-xs whitespace-nowrap inline"
               >
-                {{
-                  cartPriceTotal.toLocaleString(
-                    $store.state.locale,
-                    $store.state.currency
-                  )
-                }}
+                {{ cart_value.toLocaleString(locale, currency) }}
               </div>
             </div>
           </router-link>
@@ -49,10 +44,25 @@
 </template>
 
 <script>
-import { cartItems, cartPriceTotal } from "../mixins/cartMixin";
+import useCart from "@/use/useCart.js";
+// import state
+import state from "@/use/state";
 
 export default {
   name: "Nav",
-  mixins: [cartItems, cartPriceTotal],
+  setup() {
+    // get the functions needed
+    const { cart_items, cart_amount, cart_value } = useCart();
+
+    // get the functions needed
+    const { locale, currency } = state();
+    return {
+      cart_items,
+      cart_amount,
+      cart_value,
+      locale,
+      currency,
+    };
+  },
 };
 </script>
