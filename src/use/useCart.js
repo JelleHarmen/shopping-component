@@ -17,7 +17,7 @@ export default function() {
     // return the total
     // zero by default
     if (total >= 99) {
-      return "99+";
+      return 99;
     }
     return total;
   });

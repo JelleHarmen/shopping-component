@@ -26,7 +26,7 @@
                 v-if="cart_quantity"
                 class="absolute -top-5 lg:-top-4 -right-2 lg:-right-4 badge bg-red-500  text-white px-2 py-1 rounded-full text-xs inline"
               >
-                {{ cart_quantity }}
+                {{ cart_quantity }}<span v-show="cart_quantity >= 99">+</span>
               </div>
 
               <div

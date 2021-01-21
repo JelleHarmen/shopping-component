@@ -3,7 +3,11 @@
     <div class="container py-5">
       <div class="mb-5">
         <h1 class="title">
-          winkelwagen <span v-if="cart_quantity">({{ cart_quantity }})</span>
+          winkelwagen
+          <span v-if="cart_quantity"
+            >({{ cart_quantity
+            }}<span v-show="cart_quantity >= 99">+</span>)</span
+          >
         </h1>
       </div>
 
