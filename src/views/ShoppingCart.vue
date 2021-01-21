@@ -3,17 +3,17 @@
     <div class="container py-5">
       <div class="mb-5">
         <h1 class="title">
-          winkelwagen <span v-if="cart_amount">({{ cart_amount }})</span>
+          winkelwagen <span v-if="cart_quantity">({{ cart_quantity }})</span>
         </h1>
       </div>
 
-      <div class="grid md:grid-cols-1 gap-4 lg:gap-6" v-if="cart_items != ''">
+      <div class="grid md:grid-cols-1 gap-4 lg:gap-6" v-if="cart_quantity > 0">
         <div
           class="shop--item bg-gray-100 rounded-lg p-3"
           :key="item.id"
           v-for="(item, index) in cart_items"
         >
-          <div class="grid grid-cols-3">
+          <div class="grid grid-cols-4">
             <div class="flex">
               <div class="self-center">
                 <h5 class="text-xl font-bold">
@@ -26,6 +26,14 @@
               <div class="self-center">
                 <p>
                   {{ item.price.toLocaleString(locale, currency) }}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex justify-center">
+              <div class="self-center" v-if="item.quantity">
+                <p>
+                  {{ item.quantity }}
                 </p>
               </div>
             </div>
@@ -47,6 +55,11 @@
           >
         </div>
       </div>
+      <div class="text-center pt-3" v-if="cart_value > 0">
+        <h3 class="text-3xl">
+          {{ cart_value.toLocaleString(locale, currency) }}
+        </h3>
+      </div>
     </div>
   </section>
 </template>
@@ -62,14 +75,15 @@ export default {
   name: "ShoppingCart",
   setup() {
     // get the functions needed
-    const { cart_items, cart_amount, removeFromCart } = useCart();
+    const { cart_items, cart_quantity, cart_value, removeFromCart } = useCart();
 
     // get the functions needed
     const { locale, currency } = state();
 
     return {
       cart_items,
-      cart_amount,
+      cart_quantity,
+      cart_value,
       removeFromCart,
       locale,
       currency,

@@ -23,10 +23,10 @@
               />
 
               <div
-                v-if="cart_amount"
+                v-if="cart_quantity"
                 class="absolute -top-5 lg:-top-4 -right-2 lg:-right-4 badge bg-red-500  text-white px-2 py-1 rounded-full text-xs inline"
               >
-                {{ cart_amount }}
+                {{ cart_quantity }}
               </div>
 
               <div
@@ -52,13 +52,13 @@ export default {
   name: "Nav",
   setup() {
     // get the functions needed
-    const { cart_items, cart_amount, cart_value } = useCart();
+    const { cart_items, cart_quantity, cart_value } = useCart();
 
     // get the functions needed
     const { locale, currency } = state();
     return {
       cart_items,
-      cart_amount,
+      cart_quantity,
       cart_value,
       locale,
       currency,
